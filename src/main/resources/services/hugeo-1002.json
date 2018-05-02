@@ -1,0 +1,9 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^(https|imaps|http)://hugeo.*",
+  "name" : "hugeo",
+  "id" : 1002,
+  "description" : "hugeo项目访问过来，跳转到demo主题",
+  "evaluationOrder" : 2,
+  "theme": "hugeo"
+}

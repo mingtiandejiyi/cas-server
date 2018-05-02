@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${#themes.code('hugeo.title')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('hugeo.css.file')}}"/>
+</head>
+
+<body>
+
+<div class="login_box">
+    <div th:if="${registeredService}" id="serviceui" class="alert alert-info">
+        <div th:unless="${serviceUIMetadata}">
+            <table>
+                <tr>
+                    <td>
+                        <img th:src="${registeredService.logo}" th:if="${registeredService.logo}"/>
+                        <img th:src="@{images/webapp.png}" th:unless="${registeredService.logo}"/>
+                    </td>
+                    <td id="servicedesc">
+                        <h2 th:text="${registeredService.name}"></h2>
+                        <p th:text="${registeredService.description}"></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="login_l_img"><img src="/themes/hugeo/images/login-img.png"/></div>
+    <div class="login">
+        <div class="login_logo"><a href="#"><img src="/themes/hugeo/images/login_logo.png"/></a></div>
+        <div class="login_name">
+            <p th:text="${#themes.code('hugeo.title')}"></p>
+        </div>
+        <form method="post" th:object="${credential}">
+            <input class="required"
+                   id="accountName"
+                   size="25"
+                   tabindex="1"
+                   type="text"
+                   th:disabled="${guaEnabled}"
+                   th:field="*{username}"
+                   th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                   autocomplete="off"
+                   placeholder="输入用户名"/>
+              <input class="required"
+                   type="password"
+                   id="password"
+                   size="25"
+                   tabindex="2"
+                   th:accesskey="#{screen.welcome.label.password.accesskey}"
+                   th:field="*{password}"
+                   autocomplete="off"
+                   placeholder="输入用户密码"/>
+
+            <div style="line-height: 22px; color:red;" th:if="${#fields.hasErrors('*')}">
+                <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+            </div>
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="submit"/>
+            <input type="hidden" name="geolocation"/>
+            <input class="btn btn-submit btn-block"
+                   name="submit"
+                   accesskey="l"
+                   th:value="#{screen.welcome.button.login}"
+                   tabindex="6"
+                   type="submit"/>
+        </form>
+    </div>
+    <div class="copyright">民生集团 版权所有©2017-2018 技术支持电话：000-00000000</div>
+</div>
+
