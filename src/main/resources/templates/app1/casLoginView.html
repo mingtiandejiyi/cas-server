@@ -4,8 +4,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title th:text="${#themes.code('hugeo.title')}"></title>
-    <link rel="stylesheet" th:href="@{${#themes.code('hugeo.css.file')}}"/>
+    <title th:text="${#themes.code('app1.title')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('app1.css.file')}}"/>
 </head>
 
 <body>
@@ -27,11 +27,11 @@
             </table>
         </div>
     </div>
-    <div class="login_l_img"><img src="/themes/hugeo/images/login-img.png"/></div>
+    <div class="login_l_img"><img src="/themes/app1/images/login-img.png"/></div>
     <div class="login">
-        <div class="login_logo"><a href="#"><img src="/themes/hugeo/images/login_logo.png"/></a></div>
+        <div class="login_logo"><a href="#"><img src="/themes/app1/images/login_logo.png"/></a></div>
         <div class="login_name">
-            <p th:text="${#themes.code('hugeo.title')}"></p>
+            <p th:text="${#themes.code('app1.title')}"></p>
         </div>
         <form method="post" th:object="${credential}">
             <input class="required"

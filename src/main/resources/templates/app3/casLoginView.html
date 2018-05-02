@@ -4,13 +4,13 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title th:text="${#themes.code('yellowlu.pageTitle')}"></title>
-    <link rel="stylesheet" th:href="@{${#themes.code('yellowlu.css.file')}}"/>
+    <title th:text="${#themes.code('app3.pageTitle')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('app3.css.file')}}"/>
 </head>
 
 <body>
-<h1 th:text="${#themes.code('yellowlu.pageTitle')}"></h1>
-<h2>yellowlu的登录模板</h2>
+<h1 th:text="${#themes.code('app3.pageTitle')}"></h1>
+<h2>app3的登录模板</h2>
 <div>
     <form method="post" th:object="${credential}">
         <div th:if="${#fields.hasErrors('*')}">

@@ -1,0 +1,14 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^(https|imaps|http)://app2.cas.com.*",
+  "name" : "app2.cas.com",
+  "id" : 1002,
+  "description" : "app2.cas.com项目访问过来，跳转到demo主题",
+  "evaluationOrder" : 2,
+  "theme": "app2",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  }
+}
+
+
