@@ -50,6 +50,10 @@ On a successful deployment via the following methods, CAS will be available at:
 
 动态加载、管理services
 
+参考网址
+CAS5.2x单点登录(六)-----动态添加services
+https://blog.csdn.net/u013825231/article/details/79600116
+
         <dependency>
             <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-support-jpa-service-registry</artifactId>

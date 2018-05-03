@@ -1,32 +1,20 @@
-package com.yellowcong.auth.handler;
+package com.cas.auth;
 
 import java.security.GeneralSecurityException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.login.AccountLockedException;
-import javax.security.auth.login.FailedLoginException;
-
-import com.yellowcong.auth.util.CustomPasswordEncoder;
 import org.apereo.cas.authentication.Credential;
 import org.apereo.cas.authentication.HandlerResult;
 import org.apereo.cas.authentication.PreventedException;
 import org.apereo.cas.authentication.UsernamePasswordCredential;
-import org.apereo.cas.authentication.exceptions.AccountDisabledException;
-import org.apereo.cas.authentication.exceptions.InvalidLoginLocationException;
 import org.apereo.cas.authentication.handler.support.AbstractPreAndPostProcessingAuthenticationHandler;
 import org.apereo.cas.authentication.principal.PrincipalFactory;
 import org.apereo.cas.services.ServicesManager;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * 自定义密码验证(MD5)
@@ -34,9 +22,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * 创建日期:2018/05/02
  *
  */
-public class CustomerHandler extends AbstractPreAndPostProcessingAuthenticationHandler {
+public class LoginHandler extends AbstractPreAndPostProcessingAuthenticationHandler {
 
-	public CustomerHandler(String name, ServicesManager servicesManager, PrincipalFactory principalFactory,
+	public LoginHandler(String name, ServicesManager servicesManager, PrincipalFactory principalFactory,
 			Integer order) {
 		super(name, servicesManager, principalFactory, order);
 	}

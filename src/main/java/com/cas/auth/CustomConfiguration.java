@@ -1,4 +1,4 @@
-package com.yellowcong.auth.conf;
+package com.cas.auth;
 
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 
-import com.yellowcong.auth.handler.CustomerHandler;
 
 /**
  * @author yellowcong
@@ -25,7 +24,7 @@ public class CustomConfiguration  implements AuthenticationEventExecutionPlanCon
     @Bean
     public AuthenticationHandler customAuthenticationHandler() {
         //优先验证
-        return new CustomerHandler("customerHandler",
+        return new LoginHandler("customerHandler",
                 servicesManager, new DefaultPrincipalFactory(), 1);
     }
 
