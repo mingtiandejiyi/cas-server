@@ -6,59 +6,118 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title th:text="${#themes.code('app2.pageTitle')}"></title>
     <link rel="stylesheet" th:href="@{${#themes.code('app2.css.file')}}"/>
+    <link rel="stylesheet" th:href="@{${#themes.code('app2.skitter.styles.css.file')}}"/>
+
+    <script th:src="@{${#themes.code('app2.js.jquery.file')}}"></script>
+    <script th:src="@{${#themes.code('app2.js.public.file')}}"></script>
+    <script th:src="@{${#themes.code('app2.js.jquery.easing.file')}}"></script>
+    <script th:src="@{${#themes.code('app2.js.jquery.skitter.min.file')}}"></script>
+    <!-- Init Skitter -->
+    <script  th:inline="javascript">
+        $(document).ready(function() {
+            $('.box_skitter_large').skitter({
+                theme: 'clean',
+                numbers_align: 'center',
+                progressbar: false,
+                dots: true,
+                preview: true,
+                stop_over:false,
+            });
+        });
+    </script>
 </head>
 
+
 <body>
-<h1 th:text="${#themes.code('app2.pageTitle')}"></h1>
-<h2>app2的登录模板</h2>
-<div>
-    <form method="post" th:object="${credential}">
-        <div th:if="${#fields.hasErrors('*')}">
-            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+<div class="top_box">
+    <div class="wid_con">
+        <div class="top_con">
+            <div class="top_logo">
+                <a href="javascript:void(0);">
+                    <img src="/themes/app2/images/logo_touming.gif">
+                </a>
+                <span>登录/Login</span>
+            </div>
+            <div class="top_menu">
+                <ul>
+                    <li><a href="#"></a></li>
+                </ul>
+                <i></i>
+            </div>
         </div>
-        <h2 th:utext="#{screen.welcome.instructions}"></h2>
-
-        <section class="row">
-            <label for="username" th:utext="#{screen.welcome.label.netid}"/>
-            <div th:unless="${openIdLocalId}">
-                <input class="required"
-                       id="username"
-                       size="25"
-                       tabindex="1"
-                       type="text"
-                       th:disabled="${guaEnabled}"
-                       th:field="*{username}"
-                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
-                       autocomplete="off"/>
+    </div>
+</div>
+<div class="content">
+    <div class="wid_con loginbox">
+        <div class="border_box">
+            <div class="box_skitter box_skitter_large">
+                <ul>
+                    <li><img src="/themes/app2/images/banner1.jpg" class="cubeStop" /></li>
+                    <li><img src="/themes/app2/images/banner2.jpg" class="cubeRandom" /></li>
+                </ul>
             </div>
-        </section>
+        </div>
+        <div class="login_con">
 
-        <section class="row">
-            <label for="password" th:utext="#{screen.welcome.label.password}"/>
-            <div>
-                <input class="required"
-                       type="password"
-                       id="password"
-                       size="25"
-                       tabindex="2"
-                       th:accesskey="#{screen.welcome.label.password.accesskey}"
-                       th:field="*{password}"
-                       autocomplete="off"/>
+            <form method="post" th:object="${credential}">
+            <h1>登录/LOGIN</h1>
+            <div class="text_box">
+
+                <div>
+                    <div><i><img src="/themes/app2/images/icon01.png"></i>
+                        <input class="required"
+                               id="accountName"
+                               size="25"
+                               tabindex="1"
+                               type="text"
+                               th:disabled="${guaEnabled}"
+                               th:field="*{username}"
+                               th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                               autocomplete="off"
+                               placeholder="输入用户名"/>
+                    </div>
+                    <div><i><img src="/themes/app2/images/icon02.png"></i>
+                        <input class="required"
+                               type="password"
+                               id="password"
+                               size="25"
+                               tabindex="2"
+                               th:accesskey="#{screen.welcome.label.password.accesskey}"
+                               th:field="*{password}"
+                               autocomplete="off"
+                               placeholder="输入用户密码"/>
+                    </div>
+                    <!--<div class="yzm">
+                        <i><img src="/themes/app2/images/icon03.png"></i><input type="text" placeholder="请输入验证码">
+                        <label><img src="/themes/app2/images/yzm.png"></label>
+                    </div>-->
+                    <h3>
+                        <a href="password.html">忘记密码？</a>
+                        <a href="register.html">没有帐号？免费注册！</a>
+                    </h3>
+                    <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                    <input type="hidden" name="_eventId" value="submit"/>
+                    <input type="hidden" name="geolocation"/>
+                    <input class="btn btn-submit btn-block"
+                           name="submit"
+                           accesskey="l"
+                           th:value="#{screen.welcome.button.login}"
+                           tabindex="6"
+                           type="submit"/>
+
+                    <div style="line-height: 22px; color:red;" th:if="${#fields.hasErrors('*')}">
+                        <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                    </div>
+                </div>
+
             </div>
-        </section>
-
-        <section>
-            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
-            <input type="hidden" name="_eventId" value="submit"/>
-            <input type="hidden" name="geolocation"/>
-            <input class="btn btn-submit btn-block"
-                   name="submit"
-                   accesskey="l"
-                   th:value="#{screen.welcome.button.login}"
-                   tabindex="6"
-                   type="submit"/>
-        </section>
-    </form>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div class="footer">
+    <p>民生集团 版权所有©2017-2018 技术支持电话：000-00000000</p>
 </div>
 </body>
 </html>
