@@ -6,38 +6,36 @@ Generic CAS WAR overlay to exercise the latest versions of CAS. This overlay cou
 # Versions
 
 ```xml
-<cas.version>5.2.x</cas.version>
+<cas.version>5.2.4</cas.version>
 ```
 
 # Requirements
 
+* Tomcat 8.0+
 * JDK 1.8+
 
 # Configuration
 
 The `etc` directory contains the configuration files and directories that need to be copied to `/etc/cas/config`.
 
-# Build
-
-To see what commands are available to the build script, run:
-
-```bash
-./build.sh help
-```
-
-To package the final web application, run:
-
-```bash
-./build.sh package
-```
-
-To update `SNAPSHOT` versions run:
-
-```bash
-./build.sh package -U
-```
+创建cas_test数据库，在com.yellowcong.auth.handler里的doAuthentication找到以下代码，修改数据库链接参数并执行init.sql里的sql语句
+    
+    d.setDriverClassName("com.mysql.jdbc.Driver");
+	d.setUrl("jdbc:mysql://127.0.0.1:3306/cas_test");			
+	d.setUsername("root");
+	d.setPassword("2018");
+	
+	
 
 # Deployment
+
+相关参考资料网址
+
+CAS之5.2x版本单点登录服务安装-yellowcong
+https://blog.csdn.net/yelllowcong/article/details/78805420 
+
+Cas之5.2.x版本之设定SSL证书的两种方式-yellowcong
+https://blog.csdn.net/yelllowcong/article/details/79229655
 
 - Create a keystore file `thekeystore` under `/etc/cas`. Use the password `changeit` for both the keystore and the key/certificate entries.
 - Ensure the keystore is loaded up with keys and certificates of the server.
@@ -46,55 +44,4 @@ On a successful deployment via the following methods, CAS will be available at:
 
 * `http://cas.server.name:8080/cas`
 * `https://cas.server.name:8443/cas`
-
-## Executable WAR
-
-Run the CAS web application as an executable WAR.
-
-```bash
-./build.sh run
-```
-
-## Spring Boot
-
-Run the CAS web application as an executable WAR via Spring Boot. This is most useful during development and testing.
-
-```bash
-./build.sh bootrun
-```
-
-### Warning!
-
-Be careful with this method of deployment. `bootRun` is not designed to work with already executable WAR artifacts such that CAS server web application. YMMV. Today, uses of this mode ONLY work when there is **NO OTHER** dependency added to the build script and the `cas-server-webapp` is the only present module. See [this issue](https://github.com/apereo/cas/issues/2334) and [this issue](https://github.com/spring-projects/spring-boot/issues/8320) for more info.
-
-
-## Spring Boot App Server Selection
-
-There is an app.server property in the `pom.xml` that can be used to select a spring boot application server.
-It defaults to `-tomcat` but `-jetty` and `-undertow` are supported. 
-It can also be set to an empty value (nothing) if you want to deploy CAS to an external application server of your choice.
-
-```xml
-<app.server>-tomcat<app.server>
-```
-
-## Windows Build
-
-If you are building on windows, try `build.cmd` instead of `build.sh`. Arguments are similar but for usage, run:  
-
-```
-build.cmd help
-```
-
-## External
-
-Deploy resultant `target/cas.war`  to a servlet container of choice.
-
-
-## Command Line Shell
-
-Invokes the CAS Command Line Shell. For a list of commands either use no arguments or use `-h`. To enter the interactive shell use `-sh`.
-
-```bash
-./build.sh cli
-```
+  

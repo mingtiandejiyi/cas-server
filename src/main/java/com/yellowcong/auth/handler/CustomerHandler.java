@@ -8,11 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.login.AccountLockedException;
 import javax.security.auth.login.FailedLoginException;
 
+import com.yellowcong.auth.util.CustomPasswordEncoder;
 import org.apereo.cas.authentication.Credential;
 import org.apereo.cas.authentication.HandlerResult;
 import org.apereo.cas.authentication.PreventedException;
@@ -22,9 +24,14 @@ import org.apereo.cas.authentication.exceptions.InvalidLoginLocationException;
 import org.apereo.cas.authentication.handler.support.AbstractPreAndPostProcessingAuthenticationHandler;
 import org.apereo.cas.authentication.principal.PrincipalFactory;
 import org.apereo.cas.services.ServicesManager;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 /**
- * @author yellowcong
- * 创建日期:2018/02/02
+ * 自定义密码验证(MD5)
+ * @author bjf
+ * 创建日期:2018/05/02
  *
  */
 public class CustomerHandler extends AbstractPreAndPostProcessingAuthenticationHandler {
@@ -49,56 +56,57 @@ public class CustomerHandler extends AbstractPreAndPostProcessingAuthenticationH
 	 */
 	@Override
 	protected HandlerResult doAuthentication(Credential credential) throws GeneralSecurityException, PreventedException {
-		UsernamePasswordCredential usernamePasswordCredentia = (UsernamePasswordCredential) credential;
+		UsernamePasswordCredential transformedCredential = (UsernamePasswordCredential) credential;
 		
 		//获取传递过来的用户名和密码
-		String username = usernamePasswordCredentia.getUsername();
-        String password = usernamePasswordCredentia.getPassword();
-    	
-        Connection conn = null;
+		String username = transformedCredential.getUsername();
+        String password = transformedCredential.getPassword();
     	try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			//直接是原生的数据库配置啊
-			String url = "jdbc:mysql://127.0.0.1:3306/yellowcong";
-			String user = "root";
-			String pass = "root";
-			
-			conn = DriverManager.getConnection(url,user, pass);
-			
-			//查询语句
-			String sql = "SELECT * FROM cas_user WHERE username =? AND PASSWORD = ?";
-			PreparedStatement  ps = conn.prepareStatement(sql);
-			ps.setString(1, username);
-			ps.setString(2, password);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				//存放数据到里面
-				Map<String,Object> result = new HashMap<String,Object>();
-				result.put("username", rs.getString("username"));
-				result.put("password", rs.getString("password"));
-				result.put("email", rs.getString("email"));
-				result.put("addr", rs.getString("addr"));
-				result.put("phone", rs.getString("phone"));
-				result.put("age", rs.getString("age"));
-            	//允许登录，并且通过this.principalFactory.createPrincipal来返回用户属性
-	            return createHandlerResult(credential, this.principalFactory.createPrincipal(username, result), null);
+			DriverManagerDataSource d=new DriverManagerDataSource();
+			d.setDriverClassName("com.mysql.jdbc.Driver");
+			d.setUrl("jdbc:mysql://127.0.0.1:3306/cas_test");
+			d.setUsername("root");
+			d.setPassword("2018");
+			JdbcTemplate template=new JdbcTemplate();
+			template.setDataSource(d);
+
+			//查询数据库加密的的密码
+			List<Map<String,Object>> userMaps = template.queryForList("SELECT * FROM cas_user WHERE username = ?", username);
+
+			if(userMaps==null || userMaps.size()!=1){
+				//账号错误
+				throw new AccountLockedException();
 			}
+			Map<String,Object> user= userMaps.get(0);
+			//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			CustomPasswordEncoder encoder = new CustomPasswordEncoder();
+			if (encoder.matches(password, user.get("password").toString())) {
+				////返回多属性
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("username", user.get("username"));
+				map.put("password", user.get("password"));
+				map.put("email", user.get("email"));
+				map.put("addr", user.get("addr"));
+				map.put("phone", user.get("phone"));
+				map.put("age", user.get("age"));
+				//登录成功通过this.principalFactory.createPrincipal来返回用户属性
+				return createHandlerResult(transformedCredential, principalFactory.createPrincipal(username, map), null);
+			}
+			//return createHandlerResult(credential, this.principalFactory.createPrincipal(username, result), null);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			if(conn != null) {
+			/*if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 		}
-    	//当是admin用户的情况，直接就登录了，谁叫他是admin用户呢
+    	/*//当是admin用户的情况，直接就登录了，谁叫他是admin用户呢
     	if(username.startsWith("admin")) {
     		//直接返回去了
     		return createHandlerResult(credential, this.principalFactory.createPrincipal(username, Collections.emptyMap()), null);
@@ -117,7 +125,7 @@ public class CustomerHandler extends AbstractPreAndPostProcessingAuthenticationH
         } else if (username.startsWith("account")) {
             //账号错误
             throw new AccountLockedException();
-        }
+        }*/
 		return null;
 	}
 

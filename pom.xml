@@ -68,6 +68,7 @@
 
     <properties>
         <cas.version>5.2.4</cas.version>
+        <mysql.version>5.1.30</mysql.version>
         <springboot.version>1.5.12.RELEASE</springboot.version>
         <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
         <app.server>-tomcat</app.server>
@@ -141,6 +142,19 @@
                     <artifactId>cas-server-webapp-config</artifactId>
                     <version>${cas.version}</version>
                     <scope>provided</scope>
+                </dependency>
+                <!-- 数据库驱动 -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
+
+                <!--jdbc认证需要添加的，这个是cas的依赖包-->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jdbc</artifactId>
+                    <version>${cas.version}</version>
                 </dependency>
             </dependencies>
         </profile>
