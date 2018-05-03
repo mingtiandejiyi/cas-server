@@ -1,3 +1,5 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yellowcong.auth.conf.CustomConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.cas.auth.CustomConfiguration,\
+  com.cas.conf.SpringConfig
 
 
