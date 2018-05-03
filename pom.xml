@@ -126,6 +126,12 @@
                 <!--
                 ...Additional dependencies may be placed here...
                 -->
+                <!--动态添加services-->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jpa-service-registry</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
                 <!-- 自定义认证的方式 begin -->
                 <dependency>
                     <groupId>org.apereo.cas</groupId>
