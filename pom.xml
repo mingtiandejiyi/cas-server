@@ -162,6 +162,13 @@
                     <artifactId>cas-server-support-jdbc</artifactId>
                     <version>${cas.version}</version>
                 </dependency>
+
+                <!--JPA方式持久化票据-->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jpa-ticket-registry</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
             </dependencies>
         </profile>
 
