@@ -1,11 +1,11 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^(https|imaps|http)://oa.cas.com.*",
-  "name" : "oa.cas.com",
-  "id" : 1003,
-  "description" : "oa.cas.com项目访问过来，跳转到demo主题",
+  "serviceId" : "^(https|imaps|http)://mdm.cas.com.*",
+  "name" : "mdm.cas.com",
+  "id" : 1005,
+  "description" : "mdm.cas.com项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
-  "theme": "oa",
+  "theme": "mdm",
   "attributeReleasePolicy" : {
     "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
   }

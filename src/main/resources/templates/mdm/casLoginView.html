@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${#themes.code('mdm.pageTitle')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('mdm.min.css.file')}}"/>
+    <link rel="stylesheet" th:href="@{${#themes.code('mdm.login.css.file')}}"/>
+</head>
+<body style="background-image: url('themes/mdm/images/9.jpg');margin-top:0px;background-repeat: round;">
+<div id="loginbox" style="padding-top: 10%;">
+    <form method="post" th:object="${credential}"
+          style="background-color: rgba(0, 0, 0, 0.5) !important; background: #000; filter: alpha(opacity = 50); *background: #000; *filter: alpha(opacity = 50); /*黑色透明背景结束*/ color: #FFF; bottom: 0px; right: 0px; border: 1px solid #000;">
+        <div class="control-group normal_text">
+            <table style="width: 100%">
+                <tr>
+                    <td align="left"><img
+                            src="themes/mdm/images/logo_left.png"
+                            alt="Logo"></td>
+                    <td align="center" style="font-weight: bold;color: gray;">主数据管理系统(MDM)</td>
+                    <td align="right"><img
+                            src="themes/mdm/images/logo_left.png"
+                            alt="Logo"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_ly" style="background: #28b779">
+                        <img src="themes/mdm/images/account_1.png" alt="请输入账号..">
+                    </span>
+                    <input class="input required"
+                           id="username"
+                           size="25"
+                           tabindex="1"
+                           type="text"
+                           th:disabled="${guaEnabled}"
+                           th:field="*{username}"
+                           th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                           autocomplete="off"
+                           placeholder="输入用户名"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_ly">
+                        <img src="themes/mdm/images/lock_1.png" alt="请输入密码..">
+                    </span>
+                    <input class="input required"
+                           type="password"
+                           id="password"
+                           size="25"
+                           tabindex="2"
+                           th:accesskey="#{screen.welcome.label.password.accesskey}"
+                           th:field="*{password}"
+                           autocomplete="off"
+                           placeholder="输入用户密码"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="submit"/>
+            <input type="hidden" name="geolocation"/>
+            <input class="btn btn-submit btn-block"
+                   name="submit"
+                   accesskey="l"
+                   th:value="#{screen.welcome.button.login}"
+                   tabindex="6"
+                   type="submit"/>
+
+            <div style="line-height: 22px; color:red; " th:if="${#fields.hasErrors('*')}">
+                <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

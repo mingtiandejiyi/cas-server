@@ -1,11 +1,11 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^(https|imaps|http)://oa.cas.com.*",
-  "name" : "oa.cas.com",
-  "id" : 1003,
-  "description" : "oa.cas.com项目访问过来，跳转到demo主题",
+  "serviceId" : "^(https|imaps|http)://b2b.cas.com.*",
+  "name" : "b2b.cas.com",
+  "id" : 1004,
+  "description" : "b2b.cas.com项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
-  "theme": "oa",
+  "theme": "b2b",
   "attributeReleasePolicy" : {
     "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
   }

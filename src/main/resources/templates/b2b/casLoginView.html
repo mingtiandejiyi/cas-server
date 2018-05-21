@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${#themes.code('b2b.pageTitle')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('b2b.css.file')}}"/>
+</head>
+
+<body>
+<div class="login">
+    <form method="post" th:object="${credential}">
+        <input type="hidden" id="enPassword" name="enPassword" />
+        <table>
+            <tr>
+                <td width="190" rowspan="2" align="center" valign="bottom">
+                    <img src="themes/b2b/images/login_logo.gif" alt="SHOP++" />
+                </td>
+                <th>
+                    用户名:
+                </th>
+                <td>
+                    <input class="text required"
+                           id="username"
+                           size="25"
+                           tabindex="1"
+                           type="text"
+                           th:disabled="${guaEnabled}"
+                           th:field="*{username}"
+                           th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                           autocomplete="off"
+                           placeholder="输入用户名"/>
+                    <!--<input type="text" id="username" name="username" class="text" maxlength="20" />-->
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    密&nbsp;&nbsp;&nbsp;码:
+                </th>
+                <td>
+                    <input class="text required"
+                           type="password"
+                           id="password"
+                           size="25"
+                           tabindex="2"
+                           th:accesskey="#{screen.welcome.label.password.accesskey}"
+                           th:field="*{password}"
+                           autocomplete="off"
+                           placeholder="输入用户密码"/>
+                    <!--<input type="password" id="password" class="text" maxlength="20" autocomplete="off" />-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <th>
+                    &nbsp;
+                </th>
+                <td>
+                    <label>
+                        <input type="checkbox" id="isRememberUsername" value="true" />
+                        记住用户名
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <th>
+                    &nbsp;
+                </th>
+                <td>
+                    <input type="button" class="homeButton" value="" onclick="location.href='/'" />
+                    <!--<input type="submit" class="loginButton" value="登录" />-->
+                    <input class="loginButton"
+                           name="submit"
+                           accesskey="l"
+                           th:value="#{screen.welcome.button.login}"
+                           tabindex="6"
+                           type="submit" />
+
+                    <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                    <input type="hidden" name="_eventId" value="submit"/>
+                    <input type="hidden" name="geolocation"/>
+
+                    <div style="line-height: 22px; color:red;" th:if="${#fields.hasErrors('*')}">
+                        <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="powered">COPYRIGHT © 2008-2015 KAIYUANMALL.COM ALL RIGHTS RESERVED.</div>
+        <div class="link">
+            <a href="/">前台首页</a>
+            <!--
+            |
+            <a href="http://www.shopxx.net">官方网站</a> |
+            <a href="http://bbs.shopxx.net">交流论坛</a> |
+            <a href="http://www.shopxx.net/about.html">关于我们</a> |
+            <a href="http://www.shopxx.net/contact.html">联系我们</a> |
+            <a href="http://www.shopxx.net/license.html">授权查询</a>
+            -->
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

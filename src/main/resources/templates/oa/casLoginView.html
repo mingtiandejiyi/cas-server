@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${#themes.code('oa.pageTitle')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('oa.css.file')}}"/>
+    <style type="text/css">
+        html,body{
+            height:100%;
+        }
+        .input{
+            left:50px;
+            top:10px;
+            height:25px;
+            width:210px;
+            background:transparent!important;
+            color:#ffffff!important;
+            border:0px;
+            position:absolute;
+            font-size: 15px;
+            outline:none;
+        }
+        .input1{
+            left:30px;
+            height:25px;
+            width:210px;
+            background:transparent!important;
+            color:#ffffff!important;
+            border:0px;
+            position:absolute;
+            font-size: 15px;
+            outline:none;
+        }
+        .langOver{
+            color:#797E81!important;
+        }
+        .overlabel{
+            position:absolute;
+            z-index:1;
+            font-size:14px;
+            left:50px;
+            font-size:14px;
+            color:#D5E7E4!important;
+            line-height: 40px!important;
+        }
+        #qrcodeImg table{
+            position:absolute;
+            top:10px;
+            left: 10px;
+        }
+        #syslangul{
+            width:80px;
+            list-style: none;
+
+            background: #f3fbf9;
+            z-index: 1000;
+            margin: 0px;
+            padding: 0px;
+            top:20px;
+        }
+        #syslangul li{
+            text-align: left;
+            height:20px;
+            line-height:20px;
+            cursor:pointer;
+            color:#646767;
+            padding-left: 9px;
+        }
+
+        #syslangul .selected{
+            color:#ffffff!important;
+            background: #4695c4!important;
+        }
+
+        .selectLanOver{
+            background: #ecf4f7;
+            color:#646767!important;
+        }
+        #background-image img{
+            height:100% !important;
+            width:100% !important;
+        }
+
+    </style>
+</head>
+
+<body style="padding:0;margin:0;margin:0;padding:0;">
+<div class="w-all h-all center" style="background:url('themes/oa/images/bg_wev8.jpg') center bottom;background-size: 100% 100%">
+    <div class="h-150">&nbsp;</div>
+    <div class=" center " style="width: 600px">
+        <div>
+            <img class=" " style="max-width:400px;max-height:150px;border:0;margin:0" src="themes/oa/images/logo4.png">
+        </div>
+        <div style="height:35px">&nbsp;</div>
+        <form method="post" th:object="${credential}">
+            <div class="h-15 w-300 center">
+                <div class="p-l-30 font14 colorfff left w-140" id="messageDivOld" style="text-align: left;">
+                    &nbsp;
+                </div>
+                <input id="islanguid" name="islanguid" type="hidden" value="7">
+                <div class="clear" style="height: 0px;">&nbsp;</div>
+            </div>
+            <div id="normalLogin" class="p-l-5">
+                <table width="600px;" style="position: absolute;">
+                <tbody><tr>
+                    <td class="center" style="background: url('themes/oa/images/input_wev8.png') center center no-repeat; height: 45px;">
+                        <div class="relative center overlabel-wrapper" style="height:45px;width:280px;">
+                            <img class="absolute" style="top:10px;left:20px;" src="themes/oa/images/username_wev8.png">
+                            <label for="username" class="overlabel overlabel-apply" id="for_loginid" style="text-indent: -10000px; cursor: text;">账号</label>
+                            <input class="input required"
+                                   id="username"
+                                   size="25"
+                                   tabindex="1"
+                                   type="text"
+                                   th:disabled="${guaEnabled}"
+                                   th:field="*{username}"
+                                   th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                                   autocomplete="off"
+                                   placeholder="输入用户名"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="h-10 ">
+                        <div class="font12  colorfff left center absolute " style="width:580px;line-height: 0px" id="messageDiv"><nobr>
+                            &nbsp;
+
+                            <span name="errorMessage" id="errorMessage"></span>
+
+                        </nobr><nobr>
+                        </nobr></div><nobr>
+                    </nobr></td>
+                </tr>
+                <tr>
+                    <td style="background: url('themes/oa/images/input_wev8.png') center center no-repeat; height: 45px;">
+                        <div class="relative center overlabel-wrapper" style="height:45px;width:280px;">
+                            <img class="absolute" style="top:10px;left:20px;" src="themes/oa/images/password_wev8.png">
+                            <label for="password" class="overlabel overlabel-apply" id="for_userpassword" style="text-indent: -10000px; cursor: text;">密码</label>
+                            <input class="input required"
+                                   type="password"
+                                   id="password"
+                                   size="25"
+                                   tabindex="2"
+                                   th:accesskey="#{screen.welcome.label.password.accesskey}"
+                                   th:field="*{password}"
+                                   autocomplete="off"
+                                   placeholder="输入用户密码"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="h-10"></td>
+                </tr>
+
+                <tr style="">
+                    <td>
+                        <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                        <input type="hidden" name="_eventId" value="submit"/>
+                        <input type="hidden" name="geolocation"/>
+                        <input class="btn btn-submit btn-block"
+                               name="submit"
+                               accesskey="l"
+                               th:value="#{screen.welcome.button.login}"
+                               tabindex="6"
+                               type="submit" style="background: url('themes/oa/images/btn_login_wev8.png');height:45px;width:280px;border:0px;font-size: 14px;color: #578197;letter-spacing:2px;font-family:Arial,Helvetica,sans-serif,SimSun;"/>
+
+                        <div style="line-height: 22px; color:red;" th:if="${#fields.hasErrors('*')}">
+                            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody></table>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
