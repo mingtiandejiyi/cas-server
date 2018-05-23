@@ -53,6 +53,16 @@
                    th:field="*{password}"
                    autocomplete="off"
                    placeholder="输入用户密码"/>
+            <select class="required"
+                    id="system"
+                    tabindex="2"
+                    th:accesskey="#{screen.welcome.label.password.accesskey}"
+                    th:field="*{system}"
+                    autocomplete="off">
+                <option value="b2b">B2B</option>
+                <option value="oa">OA</option>
+                <option value="crm">CRM</option>
+            </select>
 
             <div style="line-height: 22px; color:red;" th:if="${#fields.hasErrors('*')}">
                 <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>

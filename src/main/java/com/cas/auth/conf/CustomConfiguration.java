@@ -1,5 +1,6 @@
-package com.yellowcong.auth.conf;
+package com.cas.auth.conf;
 
+import com.cas.auth.handler.CustomerHandler;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
 import org.apereo.cas.authentication.AuthenticationHandler;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 
-import com.yellowcong.auth.handler.CustomerHandler;
 
 /**
  * @author yellowcong

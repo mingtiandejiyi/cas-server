@@ -1,4 +1,4 @@
-package com.yellowcong.auth.util;
+package com.cas.auth.util;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

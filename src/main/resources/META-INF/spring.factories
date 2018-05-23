@@ -1,3 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yellowcong.auth.conf.CustomConfiguration
-
-
+org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
+com.cas.auth.conf.CustomConfiguration,\
+com.cas.auth.conf.CustomerAuthWebflowConfiguration
