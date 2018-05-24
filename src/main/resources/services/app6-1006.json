@@ -3,9 +3,9 @@
   "serviceId" : "^(https|imaps|http)://192.168.10.190.*",
   "name" : "192.168.10.190",
   "id" : 1006,
-  "description" : "oa.cas.com项目访问过来，跳转到demo主题",
+  "description" : "OA项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
-  "theme": "oa",
+  "theme": "app1",
   "attributeReleasePolicy" : {
     "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
   }

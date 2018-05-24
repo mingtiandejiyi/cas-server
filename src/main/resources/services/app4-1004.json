@@ -5,7 +5,7 @@
   "id" : 1004,
   "description" : "b2b.cas.com项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
-  "theme": "b2b",
+  "theme": "app1",
   "attributeReleasePolicy" : {
     "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
   }

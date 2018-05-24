@@ -1,9 +1,9 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^(https|imaps|http)://oa.cas.com.*",
-  "name" : "oa.cas.com",
-  "id" : 1003,
-  "description" : "oa.cas.com项目访问过来，跳转到demo主题",
+  "serviceId" : "^(https|imaps|http)://192.168.10.13.*",
+  "name" : "192.168.10.13",
+  "id" : 1007,
+  "description" : "B2B项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
   "theme": "app1",
   "attributeReleasePolicy" : {

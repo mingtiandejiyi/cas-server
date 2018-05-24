@@ -5,7 +5,7 @@
   "id" : 1005,
   "description" : "mdm.cas.com项目访问过来，跳转到demo主题",
   "evaluationOrder" : 2,
-  "theme": "mdm",
+  "theme": "app1",
   "attributeReleasePolicy" : {
     "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
   }

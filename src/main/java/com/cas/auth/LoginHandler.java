@@ -1,6 +1,7 @@
 package com.cas.auth;
 
 import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,33 +53,45 @@ public class LoginHandler extends AbstractPreAndPostProcessingAuthenticationHand
     	try {
 			DriverManagerDataSource d=new DriverManagerDataSource();
 			d.setDriverClassName("com.mysql.jdbc.Driver");
-			d.setUrl("jdbc:mysql://127.0.0.1:3306/cas_test");
-			d.setUsername("root");
-			d.setPassword("2018");
+			d.setUrl("jdbc:mysql://192.168.10.67:3306/cas_dev");
+			d.setUsername("msyy");
+			d.setPassword("msyy2018");
 			JdbcTemplate template=new JdbcTemplate();
 			template.setDataSource(d);
-
 			//查询数据库加密的的密码
 			List<Map<String,Object>> userMaps = template.queryForList("SELECT * FROM cas_user WHERE username = ?", username);
-
 			if(userMaps==null || userMaps.size()!=1){
 				//账号错误
 				throw new AccountLockedException();
 			}
+
 			Map<String,Object> user= userMaps.get(0);
 			//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			CustomPasswordEncoder encoder = new CustomPasswordEncoder();
 			if (encoder.matches(password, user.get("password").toString())) {
-				////返回多属性
+				/*////返回多属性
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("username", user.get("username"));
 				map.put("password", user.get("password"));
 				map.put("email", user.get("email"));
 				map.put("addr", user.get("addr"));
 				map.put("phone", user.get("phone"));
-				map.put("age", user.get("age"));
+				map.put("age", user.get("age"));*/
+				//查询对应的用户名
+				List<Map<String, Object>> appUserMaps = template.queryForList("SELECT appkey,username FROM cas_user_realtion WHERE casUsername = ? ", username);
+				if (appUserMaps.size() < 1) {	return  null;}
+				StringBuilder sbName=new StringBuilder();
+				for(Map<String, Object> map : appUserMaps){
+					sbName.append(",");
+					sbName.append((String)map.get("appkey"));
+					sbName.append("|");
+					sbName.append((String)map.get("username"));
+				}
+				if(sbName.length()>0){
+					sbName.replace(0,1,"");
+				}
 				//登录成功通过this.principalFactory.createPrincipal来返回用户属性
-				return createHandlerResult(transformedCredential, principalFactory.createPrincipal(username, map), null);
+				return createHandlerResult(transformedCredential, principalFactory.createPrincipal(sbName.toString(), Collections.emptyMap()), null);
 			}
 			//return createHandlerResult(credential, this.principalFactory.createPrincipal(username, result), null);
 

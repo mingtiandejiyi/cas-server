@@ -1,5 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.cas.auth.CustomConfiguration,\
-  com.cas.conf.SpringConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.cas.auth.CustomConfiguration
 
 

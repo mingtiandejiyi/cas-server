@@ -132,7 +132,12 @@
                     <artifactId>cas-server-core-authentication</artifactId>
                     <version>${cas.version}</version>
                 </dependency>
-
+                <!--mysql的依赖包-->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
                 <!--jdbc认证需要添加的，这个是cas的依赖包-->
                 <dependency>
                     <groupId>org.apereo.cas</groupId>
